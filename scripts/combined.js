@@ -50,7 +50,7 @@ function onLocationClicked({ lngLat }, map) {
     el.style.backgroundSize = "contain"
     el.style.borderRadius = "50%"
 
-    el.style.width =   '60px';
+    el.style.width = '60px';
     el.style.height = '60px';
 
     // add marker to map
@@ -105,6 +105,37 @@ function startApp() {
             .setLngLat(marker.geometry.coordinates)
             .addTo(map);
     });
+
+    var swatches = document.getElementById('swatches');
+    var layer = document.getElementById('layer');
+    var colors = [
+        '#ffffcc',
+        '#a1dab4',
+        '#41b6c4',
+        '#2c7fb8',
+        '#253494',
+        '#fed976',
+        '#feb24c',
+        '#fd8d3c',
+        '#f03b20',
+        '#bd0026'
+    ];
+
+    colors.forEach(function (color) {
+        var swatch = document.createElement('button');
+        swatch.style.backgroundColor = color;
+        swatch.addEventListener('click', function () {
+            map.setPaintProperty(layer.value, 'fill-color', color);
+        });
+        swatches.appendChild(swatch);
+    });
+
+    map.addControl(
+        new MapboxDirections({
+            accessToken: mapboxgl.accessToken
+        }),
+        'bottom-left'
+    );
 
 
 }
